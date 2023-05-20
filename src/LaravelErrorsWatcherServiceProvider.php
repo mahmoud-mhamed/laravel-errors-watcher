@@ -2,9 +2,9 @@
 
 namespace Mahmoudmhamed\LaravelErrorsWatcher;
 
+use Mahmoudmhamed\LaravelErrorsWatcher\Commands\LaravelErrorsWatcherCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Mahmoudmhamed\LaravelErrorsWatcher\Commands\LaravelErrorsWatcherCommand;
 
 class LaravelErrorsWatcherServiceProvider extends PackageServiceProvider
 {
