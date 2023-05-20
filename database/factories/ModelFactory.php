@@ -1,6 +1,6 @@
 <?php
 
-namespace VendorName\Skeleton\Database\Factories;
+namespace Mahmoudmhamed\LaravelErrorsWatcher\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 

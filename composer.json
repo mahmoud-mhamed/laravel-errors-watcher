@@ -1,17 +1,17 @@
 {
-    "name": ":vendor_slug/:package_slug",
-    "description": ":package_description",
+    "name": "mahmoud-mhamed/laravel-errors-watcher",
+    "description": "This is my package laravel-errors-watcher",
     "keywords": [
-        ":vendor_name",
+        "mahmoud-mhamed",
         "laravel",
-        ":package_slug"
+        "laravel-errors-watcher"
     ],
-    "homepage": "https://github.com/:vendor_slug/:package_slug",
+    "homepage": "https://github.com/mahmoud-mhamed/laravel-errors-watcher",
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": "author@domain.com",
+            "name": "mahmoud-mhamed",
+            "email": "mahmoud1272022@gmail.com",
             "role": "Developer"
         }
     ],
@@ -35,13 +35,13 @@
     },
     "autoload": {
         "psr-4": {
-            "VendorName\\Skeleton\\": "src/",
-            "VendorName\\Skeleton\\Database\\Factories\\": "database/factories/"
+            "Mahmoudmhamed\\LaravelErrorsWatcher\\": "src/",
+            "Mahmoudmhamed\\LaravelErrorsWatcher\\Database\\Factories\\": "database/factories/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "VendorName\\Skeleton\\Tests\\": "tests/"
+            "Mahmoudmhamed\\LaravelErrorsWatcher\\Tests\\": "tests/"
         }
     },
     "scripts": {
@@ -61,10 +61,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "VendorName\\Skeleton\\SkeletonServiceProvider"
+                "Mahmoudmhamed\\LaravelErrorsWatcher\\LaravelErrorsWatcherServiceProvider"
             ],
             "aliases": {
-                "Skeleton": "VendorName\\Skeleton\\Facades\\Skeleton"
+                "LaravelErrorsWatcher": "Mahmoudmhamed\\LaravelErrorsWatcher\\Facades\\LaravelErrorsWatcher"
             }
         }
     },
