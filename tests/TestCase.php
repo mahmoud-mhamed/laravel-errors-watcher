@@ -3,8 +3,8 @@
 namespace Mahmoudmhamed\LaravelErrorsWatcher\Tests;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Orchestra\Testbench\TestCase as Orchestra;
 use Mahmoudmhamed\LaravelErrorsWatcher\LaravelErrorsWatcherServiceProvider;
+use Orchestra\Testbench\TestCase as Orchestra;
 
 class TestCase extends Orchestra
 {
