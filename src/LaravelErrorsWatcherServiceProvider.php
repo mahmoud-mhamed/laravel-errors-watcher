@@ -15,11 +15,7 @@ class LaravelErrorsWatcherServiceProvider extends PackageServiceProvider
          *
          * More info: https://github.com/spatie/laravel-package-tools
          */
-        $package
-            ->name('laravel-errors-watcher')
-            ->hasConfigFile()
-            ->hasViews()
-            ->hasMigration('create_laravel-errors-watcher_table')
-            ->hasCommand(LaravelErrorsWatcherCommand::class);
+        $package->name('laravel-errors-watcher')
+            ->hasConfigFile();
     }
 }
