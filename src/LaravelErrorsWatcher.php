@@ -2,7 +2,6 @@
 
 namespace Mahmoudmhamed\LaravelErrorsWatcher;
 
-
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -13,8 +12,9 @@ class LaravelErrorsWatcher
 {
     public static function sendSlackError(Throwable $exception): void
     {
-        if (App::isLocal() && !config('errors-watcher.slack.log_error_in_local'))
+        if (App::isLocal() && ! config('errors-watcher.slack.log_error_in_local')) {
             return;
+        }
         try {
             $request = request();
             $url = url();
@@ -31,29 +31,29 @@ $auth_data";
 
             SlackAlert::blocks([
                 [
-                    "type" => "header",
-                    "text" => [
-                        "type" => "plain_text",
-                        "text" => "🚨 $project_name Exception Occurred!",
-                        "emoji" => true
-                    ]
+                    'type' => 'header',
+                    'text' => [
+                        'type' => 'plain_text',
+                        'text' => "🚨 $project_name Exception Occurred!",
+                        'emoji' => true,
+                    ],
                 ],
                 [
-                    "type" => "section",
-                    "text" => [
-                        "type" => "mrkdwn",
-                        "text" => $error_message
-                    ]
+                    'type' => 'section',
+                    'text' => [
+                        'type' => 'mrkdwn',
+                        'text' => $error_message,
+                    ],
                 ],
                 [
-                    "type" => "divider"
+                    'type' => 'divider',
                 ],
                 [
-                    "type" => "section",
-                    "text" => [
-                        "type" => "mrkdwn",
-                        "text" => $error_user_data
-                    ]
+                    'type' => 'section',
+                    'text' => [
+                        'type' => 'mrkdwn',
+                        'text' => $error_user_data,
+                    ],
                 ],
                 ...self::getTraceBlock($exception),
             ]);
@@ -70,32 +70,35 @@ $auth_data";
             $user_id = data_get($user, 'id');
             $user_name = data_get($user, 'name');
             $user_email = data_get($user, 'email');
+
             return ">👹Auth Name: $user_name
 >Auth Id: $user_id
 >📧 Auth Email: $user_email";
         }
+
         return null;
     }
 
     private static function getTraceBlock(Throwable $exception): array
     {
-        if(!config('errors-watcher.slack.log_trace')){
+        if (! config('errors-watcher.slack.log_trace')) {
             return [];
         }
         $trace_string = str_replace("\n", '<', mb_substr($exception->getTraceAsString(), 0, 1000));
         $error_trace = "
 >📌Trace : $trace_string";
+
         return [
             [
-                "type" => "divider"
+                'type' => 'divider',
             ],
             [
-                "type" => "section",
-                "text" => [
-                    "type" => "mrkdwn",
-                    "text" => $error_trace
-                ]
-            ]
+                'type' => 'section',
+                'text' => [
+                    'type' => 'mrkdwn',
+                    'text' => $error_trace,
+                ],
+            ],
         ];
 
     }
