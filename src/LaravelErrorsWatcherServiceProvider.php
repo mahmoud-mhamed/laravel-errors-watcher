@@ -7,6 +7,12 @@ use Spatie\LaravelPackageTools\PackageServiceProvider;
 
 class LaravelErrorsWatcherServiceProvider extends PackageServiceProvider
 {
+    public function boot()
+    {
+        $this->publishes([
+            __DIR__.'/../config/errors-watcher.php' =>  config_path('errors-watcher.php'),
+        ], 'laravel-errors-watcher-config');
+    }
     public function configurePackage(Package $package): void
     {
         /*
