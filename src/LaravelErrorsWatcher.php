@@ -12,7 +12,7 @@ class LaravelErrorsWatcher
 {
     public static function sendSlackError(Throwable $exception): void
     {
-        if (App::isLocal() && !config('errors-watcher.slack.log_error_in_local')) {
+        if (App::isLocal() && ! config('errors-watcher.slack.log_error_in_local')) {
             return;
         }
         try {
@@ -49,6 +49,7 @@ class LaravelErrorsWatcher
         if (config('errors-watcher.slack.log_url')) {
             $request = request();
             $url = url();
+
             return "
 >URL: {$request->url()}
 >IP: {$request->ip()}
@@ -60,7 +61,7 @@ class LaravelErrorsWatcher
 
     private static function getTraceBlock(Throwable $exception): array
     {
-        if (!config('errors-watcher.slack.log_trace')) {
+        if (! config('errors-watcher.slack.log_trace')) {
             return [];
         }
         $trace_string = str_replace("\n", '<', mb_substr($exception->getTraceAsString(), 0, 1000));
@@ -90,6 +91,7 @@ class LaravelErrorsWatcher
             $error_user_data = "
 $url_data
 $auth_data";
+
             return [
                 [
                     'type' => 'divider',
@@ -103,18 +105,21 @@ $auth_data";
                 ],
             ];
         }
+
         return [];
     }
 
     private static function getErrorHeader(): array
     {
-        if (!config('errors-watcher.slack.log_header'))
+        if (! config('errors-watcher.slack.log_header')) {
             return [];
+        }
         if (config('errors-watcher.slack.header_title')) {
             $message = config('errors-watcher.slack.header_title');
         } else {
-            $message = "🚨 " . env('APP_NAME') . " Exception Occurred!";
+            $message = '🚨 '.env('APP_NAME').' Exception Occurred!';
         }
+
         return [
             [
                 'type' => 'header',
@@ -123,15 +128,16 @@ $auth_data";
                     'text' => $message,
                     'emoji' => true,
                 ],
-            ]
+            ],
         ];
 
     }
 
     private static function getErrorContent($exception): array
     {
-        if (!config('errors-watcher.slack.log_content'))
+        if (! config('errors-watcher.slack.log_content')) {
             return [];
+        }
         if (config('errors-watcher.slack.content')) {
             $message = config('errors-watcher.slack.content');
         } else {
@@ -139,6 +145,7 @@ $auth_data";
 >💩{$exception->getMessage()}
 >📂`{$exception->getFile()} line {$exception->getLine()}`";
         }
+
         return [
             [
                 'type' => 'section',
@@ -146,7 +153,7 @@ $auth_data";
                     'type' => 'mrkdwn',
                     'text' => $message,
                 ],
-            ]
+            ],
         ];
 
     }
