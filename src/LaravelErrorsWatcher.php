@@ -11,11 +11,11 @@ class LaravelErrorsWatcher
 {
     public static function sendSlackError(Throwable $exception): void
     {
-        if (App::isLocal() && !config('errors-watcher.slack.log_error_in_local')) {
+        if (App::isLocal() && ! config('errors-watcher.slack.log_error_in_local')) {
             return;
         }
         try {
-            Log::channel('slack')->error(self::getErrorHeader() . self::getErrorContent($exception) . self::getTraceAuthAndUrlData() . self::getTraceBlock($exception));
+            Log::channel('slack')->error(self::getErrorHeader().self::getErrorContent($exception).self::getTraceAuthAndUrlData().self::getTraceBlock($exception));
         } catch (\Throwable  $e) {
             Log::error($e);
         }
@@ -54,14 +54,14 @@ Previous Url: {$url->previous()}";
 
     private static function getTraceBlock(Throwable $exception): ?string
     {
-        if (!config('errors-watcher.slack.log_trace')) {
+        if (! config('errors-watcher.slack.log_trace')) {
             return null;
         }
         $trace_string = mb_substr($exception->getTraceAsString(), 0, 1000);
         $error_trace = "
 📌Trace : $trace_string";
 
-        return self::getLineString() . $error_trace;
+        return self::getLineString().$error_trace;
     }
 
     private static function getTraceAuthAndUrlData(): ?string
@@ -70,10 +70,10 @@ Previous Url: {$url->previous()}";
         $url_data = self::getUrlData();
         $message = null;
         if ($url_data) {
-            $message .= self::getLineString() . $url_data;
+            $message .= self::getLineString().$url_data;
         }
         if ($auth_data) {
-            $message .= self::getLineString() . $auth_data;
+            $message .= self::getLineString().$auth_data;
         }
 
         return $message;
@@ -81,19 +81,19 @@ Previous Url: {$url->previous()}";
 
     private static function getErrorHeader(): ?string
     {
-        if (!config('errors-watcher.slack.log_header')) {
+        if (! config('errors-watcher.slack.log_header')) {
             return null;
         }
         if (config('errors-watcher.slack.header_title')) {
             return config('errors-watcher.slack.header_title');
         }
 
-        return '🚨 ' . env('APP_NAME') . ' Exception Occurred!';
+        return '🚨 '.env('APP_NAME').' Exception Occurred!';
     }
 
     private static function getErrorContent($exception): ?string
     {
-        if (!config('errors-watcher.slack.log_content')) {
+        if (! config('errors-watcher.slack.log_content')) {
             return null;
         }
         if (config('errors-watcher.slack.content')) {
@@ -104,7 +104,7 @@ Previous Url: {$url->previous()}";
 📂{$exception->getFile()} line {$exception->getLine()}";
         }
 
-        return self::getLineString() . $message;
+        return self::getLineString().$message;
 
     }
 
