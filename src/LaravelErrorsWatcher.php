@@ -2,22 +2,20 @@
 
 namespace Mahmoudmhamed\LaravelErrorsWatcher;
 
-use App\Models\User;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
-use Spatie\SlackAlerts\Facades\SlackAlert;
 use Throwable;
 
 class LaravelErrorsWatcher
 {
     public static function sendSlackError(Throwable $exception): void
     {
-        if (App::isLocal() && !config('errors-watcher.slack.log_error_in_local')) {
+        if (App::isLocal() && ! config('errors-watcher.slack.log_error_in_local')) {
             return;
         }
         try {
-            Log::channel('slack')->error(self::getErrorHeader() . self::getErrorContent($exception) . self::getTraceAuthAndUrlData() . self::getTraceBlock($exception));
+            Log::channel('slack')->error(self::getErrorHeader().self::getErrorContent($exception).self::getTraceAuthAndUrlData().self::getTraceBlock($exception));
         } catch (\Throwable  $e) {
             Log::error($e);
         }
@@ -26,11 +24,11 @@ class LaravelErrorsWatcher
     private static function getAuthData(): ?string
     {
         if (config('errors-watcher.slack.log_auth') && Auth::check()) {
-//        if (true) {
+            //        if (true) {
             $user = Auth::check() ? Auth::user() : [];
-            $user=[
-                'id'=>33,
-                'name'=>'assd',
+            $user = [
+                'id' => 33,
+                'name' => 'assd',
             ];
             $user_id = data_get($user, 'id');
             $user_name = data_get($user, 'name');
@@ -61,10 +59,10 @@ Previous Url: {$url->previous()}";
 
     private static function getTraceBlock(Throwable $exception): ?string
     {
-        if (!config('errors-watcher.slack.log_trace')) {
+        if (! config('errors-watcher.slack.log_trace')) {
             return null;
         }
-        $trace_string =  mb_substr($exception->getTraceAsString(), 0, 1000);
+        $trace_string = mb_substr($exception->getTraceAsString(), 0, 1000);
         $error_trace = "
 📌Trace : $trace_string";
 
@@ -75,31 +73,32 @@ Previous Url: {$url->previous()}";
     {
         $auth_data = self::getAuthData();
         $url_data = self::getUrlData();
-        $message=null;
+        $message = null;
         if ($url_data) {
-            $message.= self::getLineString() . $url_data;
+            $message .= self::getLineString().$url_data;
         }
         if ($auth_data) {
-            $message.= self::getLineString() .$auth_data;
+            $message .= self::getLineString().$auth_data;
         }
+
         return $message;
     }
 
     private static function getErrorHeader(): ?string
     {
-        if (!config('errors-watcher.slack.log_header')) {
+        if (! config('errors-watcher.slack.log_header')) {
             return null;
         }
         if (config('errors-watcher.slack.header_title')) {
             return config('errors-watcher.slack.header_title');
         }
 
-        return '🚨 ' . env('APP_NAME') . ' Exception Occurred!';
+        return '🚨 '.env('APP_NAME').' Exception Occurred!';
     }
 
     private static function getErrorContent($exception): ?string
     {
-        if (!config('errors-watcher.slack.log_content')) {
+        if (! config('errors-watcher.slack.log_content')) {
             return null;
         }
         if (config('errors-watcher.slack.content')) {
@@ -110,13 +109,13 @@ Previous Url: {$url->previous()}";
 📂{$exception->getFile()} line {$exception->getLine()}";
         }
 
-        return self::getLineString() . $message;
+        return self::getLineString().$message;
 
     }
 
     private static function getLineString()
     {
-        return "
-───────────── ";
+        return '
+───────────── ';
     }
 }
